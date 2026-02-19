@@ -56,10 +56,36 @@ function App() {
     await updateDoc(itemRef, { quantity: newQty });
   };
 
+  const totalItems = items.length;
+  const completedItemsCount = items.filter(item => item.completed).length;
+  const remainingItems = totalItems - completedItemsCount;
+
   return (
     <div className="app-container">
       <header>
-        <h1><ShoppingCart /> Lista de Compras</h1>
+        <div className="header-main">
+          <h1><ShoppingCart /> Lista de Compras</h1>
+          {totalItems > 0 && (
+            <div className="stats-badge">
+              {completedItemsCount} / {totalItems}
+            </div>
+          )}
+        </div>
+        
+        {totalItems > 0 && (
+          <div className="progress-container">
+            <div 
+              className="progress-bar" 
+              style={{ width: `${(completedItemsCount / totalItems) * 100}%` }}
+            ></div>
+          </div>
+        )}
+        
+        {remainingItems === 0 && totalItems > 0 ? (
+          <p className="status-msg success">Shopping complete! 🎉</p>
+        ) : totalItems > 0 ? (
+          <p className="status-msg">{remainingItems} items remaining</p>
+        ) : null}
       </header>
 
       <AddItem onAdd={addItem} />
