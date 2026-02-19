@@ -236,3 +236,89 @@ header h1 {
   text-transform: uppercase; 
   letter-spacing: 0.5px;
 }
+
+/* Contenedor del formulario */
+.add-item-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+  margin-bottom: 30px; 
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* Fila de Input y Select */
+.input-group { 
+  display: flex; 
+  flex-direction: column; /* En móvil, uno arriba del otro */
+  gap: 10px; 
+}
+
+@media (min-width: 400px) {
+  .input-group { flex-direction: row; } /* En pantallas más anchas, a la par */
+}
+
+.input-group input { 
+  flex: 2; 
+  padding: 12px; 
+  border: 1px solid #e2e8f0; 
+  border-radius: 8px; 
+  font-size: 16px; /* Evita zoom automático en iPhone */
+}
+
+.input-group select { 
+  flex: 1; 
+  padding: 12px; 
+  border: 1px solid #e2e8f0; 
+  border-radius: 8px; 
+  background: white;
+  font-size: 14px;
+}
+
+/* Botón de Añadir (ocupa todo el ancho abajo) */
+.add-item-form button[type="submit"] {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column; /* Nombre arriba, categoría abajo */
+  justify-content: center;
+}
+
+.item-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.item-category-tag {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Asegurar que los controles de cantidad no se muevan */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto; /* Empuja todo a la derecha */
+  padding: 0 10px;
+}
