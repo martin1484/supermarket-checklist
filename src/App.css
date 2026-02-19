@@ -217,3 +217,22 @@ header h1 {
   background: #f7fafc;
   color: #2ecc71;
 }
+
+.add-item-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.input-group { display: flex; gap: 5px; }
+.input-group input { flex: 2; }
+.input-group select { 
+  flex: 1; 
+  padding: 10px; 
+  border-radius: 8px; 
+  border: 1px solid #ddd; 
+  background: #f8f9fa;
+}
+
+.item-info { display: flex; flex-direction: column; }
+.item-category-tag { 
+  font-size: 0.7rem; 
+  color: #a0aec0; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px;
+}

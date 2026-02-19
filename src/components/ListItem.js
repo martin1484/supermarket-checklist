@@ -8,8 +8,11 @@ function ListItem({ item, onToggle, onDelete, onUpdateQuantity }) {
         <div onClick={() => onToggle(item)} className="checkbox-area">
           {item.completed ? <CheckCircle size={20} color="#2ecc71" /> : <Circle size={20} color="#ddd" />}
         </div>
-        
-        <span className="item-name">{item.name}</span>
+
+        <div className="item-info">
+          <span className="item-name">{item.name}</span>
+          <span className="item-category-tag">{item.category}</span>
+        </div>
         
         <div className="quantity-controls">
           <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>

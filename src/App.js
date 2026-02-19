@@ -10,21 +10,24 @@ function App() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, 'items'), orderBy('createdAt', 'desc'));
+    const q = query(
+      collection(db, 'items'), 
+      orderBy('category', 'asc'), 
+      orderBy('name', 'asc')
+    );
     const unsub = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     });
     return () => unsub();
   }, []);
 
-  const addItem = async (itemName) => {
-
-    console.log("Received from child:", itemName); // Check your console for this!
+  const addItem = async (itemName, itemCategory) => {
 
     if (!itemName) return;
 
     await addDoc(collection(db, 'items'), {
       name: itemName,
+      category: itemCategory,
       completed: false,
       quantity: 1,
       createdAt: serverTimestamp()
