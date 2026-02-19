@@ -124,3 +124,30 @@ header h1 {
   color: #e53e3e;
   border-color: #feb2b2;
 }
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto; /* Pushes controls to the right */
+  margin-right: 15px;
+}
+
+.quantity-controls button {
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button:disabled {
+  color: #ddd;
+}
+
+.qty-number {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}

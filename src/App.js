@@ -26,6 +26,7 @@ function App() {
     await addDoc(collection(db, 'items'), {
       name: itemName,
       completed: false,
+      quantity: 1,
       createdAt: serverTimestamp()
     });
   };
@@ -49,6 +50,12 @@ function App() {
     await Promise.all(deletePromises);
   };
 
+  const updateQuantity = async (id, newQty) => {
+    if (newQty < 1) return; // Prevent negative groceries!
+    const itemRef = doc(db, 'items', id);
+    await updateDoc(itemRef, { quantity: newQty });
+  };
+
   return (
     <div className="app-container">
       <header>
@@ -64,6 +71,7 @@ function App() {
             item={item}
             onToggle={toggleComplete}
             onDelete={deleteItem}
+            onUpdateQuantity={updateQuantity}
           />
         ))}
       </ul>
