@@ -18,7 +18,7 @@ function AddItem({ onAdd }) {
             <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Agregar un item (ej. Ceral, Leche)..."
+                placeholder="Agregar un item (ej. Cereal, Leche)..."
             />
             <button type="submit">
                 <Plus size={20} />
