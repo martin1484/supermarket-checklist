@@ -5,13 +5,28 @@ import { ShoppingCart, Share2 } from 'lucide-react';
 import './App.css';
 import AddItem from './components/AddItem';
 import ListItem from './components/ListItem';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [items, setItems] = useState([]);
+  const auth = getAuth();
+  const [user, setUser] = useState(null);
+
+  // 1. Escuchar si el usuario inicia sesión
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
+    
+    if (!user) return;
+
     const q = query(
       collection(db, 'items'), 
+      where('userId', '==', user.uid),
       orderBy('category', 'asc'), 
       orderBy('name', 'asc')
     );
@@ -19,7 +34,7 @@ function App() {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     });
     return () => unsub();
-  }, []);
+  }, [user]);
 
   const addItem = async (itemName, itemCategory) => {
 
@@ -30,6 +45,7 @@ function App() {
       category: itemCategory,
       completed: false,
       quantity: 1,
+      userId: user.uid,
       createdAt: serverTimestamp()
     });
   };
@@ -68,6 +84,19 @@ function App() {
   const totalItems = items.length;
   const completedItemsCount = items.filter(item => item.completed).length;
   const remainingItems = totalItems - completedItemsCount;
+
+  const login = () => signInWithPopup(auth, new GoogleAuthProvider());
+  const logout = () => signOut(auth);
+
+  if (!user) {
+    return (
+      <div className="login-container">
+        <h1>MarketList</h1>
+        <p>Organiza tus compras de forma privada.</p>
+        <button onClick={login} className="login-btn">Entrar con Google</button>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
