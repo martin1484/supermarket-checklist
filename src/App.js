@@ -18,7 +18,7 @@ function App() {
       setUser(currentUser);
     });
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   useEffect(() => {
     
@@ -104,6 +104,11 @@ function App() {
         <div className="header-main">
           <h1><ShoppingCart /> Lista de Compras</h1>
           <div className="header-actions">
+            
+            <button onClick={logout} className="icon-btn" title="Cerrar sesión">
+              <LogOut size={20} /> 
+            </button>
+
             <button onClick={shareList} className="icon-btn">
               <Share2 size={20} />
             </button>
