@@ -1,3 +1,23 @@
+/* Container & Global */
+.app-container {
+  max-width: 450px;
+  margin: 40px auto;
+  font-family: 'Inter', -apple-system, sans-serif;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+}
+
 /* Contenedor del formulario */
 .add-item-form { 
   display: flex; 
