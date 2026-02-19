@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase/firebaseConfig';
 import { collection, query, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, orderBy } from 'firebase/firestore';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Share2 } from 'lucide-react';
 import './App.css';
 import AddItem from './components/AddItem';
 import ListItem from './components/ListItem';
@@ -29,6 +29,12 @@ function App() {
       quantity: 1,
       createdAt: serverTimestamp()
     });
+  };
+
+  const shareList = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    alert("Link copied! Send this URL to your partner to shop together.");
   };
 
   const toggleComplete = async (item) => {
@@ -65,11 +71,16 @@ function App() {
       <header>
         <div className="header-main">
           <h1><ShoppingCart /> Lista de Compras</h1>
-          {totalItems > 0 && (
-            <div className="stats-badge">
-              {completedItemsCount} / {totalItems}
-            </div>
-          )}
+          <div className="header-actions">
+            <button onClick={shareList} className="icon-btn">
+              <Share2 size={20} />
+            </button>
+            {totalItems > 0 && (
+              <div className="stats-badge">
+                {completedItemsCount} / {totalItems}
+              </div>
+            )}
+          </div>
         </div>
         
         {totalItems > 0 && (
