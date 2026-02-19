@@ -26,7 +26,7 @@ function AddItem({ onAdd }) {
             placeholder="Nombre del artículo..." 
             />
             <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            {CATEGORÍAS.map(cat => (
+            {CATEGORIES.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
             ))}
             </select>
