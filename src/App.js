@@ -52,15 +52,8 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1><ShoppingCart /> MarketList</h1>
+        <h1><ShoppingCart /> Lista de Compras</h1>
       </header>
-
-      {items.some(item => item.completed) && (
-        <button className="clear-btn" onClick={clearCompleted}>
-          Clear Completed
-        </button>
-      )}
-
 
       <AddItem onAdd={addItem} />
 
@@ -74,6 +67,12 @@ function App() {
           />
         ))}
       </ul>
+
+      {items.some(item => item.completed) && (
+        <button className="clear-btn" onClick={clearCompleted}>
+          Limpiar Completados
+        </button>
+      )}
 
     </div>
   );
