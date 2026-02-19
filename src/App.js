@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase/firebaseConfig';
 import { collection, query, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, orderBy } from 'firebase/firestore';
-import { ShoppingCart, Trash2, Plus } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import './App.css';
 import AddItem from './components/AddItem';
 import ListItem from './components/ListItem';
 
 function App() {
   const [items, setItems] = useState([]);
-  const [input, setInput] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, 'items'), orderBy('createdAt', 'desc'));
