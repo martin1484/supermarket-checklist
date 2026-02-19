@@ -28,7 +28,6 @@ function App() {
       completed: false,
       createdAt: serverTimestamp()
     });
-    setInput('');
   };
 
   const toggleComplete = async (item) => {
