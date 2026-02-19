@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase/firebaseConfig';
 import { collection, query, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, orderBy, where } from 'firebase/firestore';
-import { ShoppingCart, Share2 } from 'lucide-react';
+import { ShoppingCart, Share2, LogOut } from 'lucide-react';
 import './App.css';
 import AddItem from './components/AddItem';
 import ListItem from './components/ListItem';
@@ -104,7 +104,7 @@ function App() {
         <div className="header-main">
           <h1><ShoppingCart /> Lista de Compras</h1>
           <div className="header-actions">
-            
+
             <button onClick={logout} className="icon-btn" title="Cerrar sesión">
               <LogOut size={20} /> 
             </button>
