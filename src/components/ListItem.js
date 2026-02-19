@@ -13,11 +13,6 @@ function ListItem({ item, onToggle, onDelete, onUpdateQuantity }) {
           <span className="item-name">{item.name}</span>
           <span className="item-category-tag">{item.category}</span>
         </div>
-
-        <div className="item-info">
-          <span className="item-name">{item.name}</span>
-          <span className="item-category-tag">{item.category}</span>
-        </div>
         
         <div className="quantity-controls">
           <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>

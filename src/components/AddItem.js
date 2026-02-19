@@ -34,19 +34,6 @@ function AddItem({ onAdd }) {
         <button type="submit"><Plus size={20} /></button>
         </form>
     );
-
-    /*return (
-        <form onSubmit={handleSubmit} className="input-area">
-            <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Agregar un item (ej. Cereal, Leche)..."
-            />
-            <button type="submit">
-                <Plus size={20} />
-            </button>
-        </form>
-    );*/
 }
 
 export default AddItem;
