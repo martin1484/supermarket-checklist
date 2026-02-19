@@ -238,3 +238,68 @@ header h1 {
   color: #e53e3e;
   border-color: #feb2b2;
 }
+
+
+/* Contenedor principal de Login */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh; /* Centra el contenido verticalmente */
+  text-align: center;
+  padding: 20px;
+}
+
+.login-container h1 {
+  font-size: 2.5rem;
+  color: #1a202c;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.login-container p {
+  color: #718096;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  max-width: 300px;
+}
+
+/* Botón de Google Estilizado */
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.login-btn:hover {
+  background-color: #f9fafb;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transform: translateY(-1px);
+}
+
+.login-btn:active {
+  transform: translateY(0px);
+}
+
+/* Opcional: Agregar el logo de Google antes del texto si quieres */
+.login-btn::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}

@@ -91,7 +91,7 @@ function App() {
   if (!user) {
     return (
       <div className="login-container">
-        <h1>MarketList</h1>
+        <h1>Lista de Compras</h1>
         <p>Organiza tus compras de forma privada.</p>
         <button onClick={login} className="login-btn">Entrar con Google</button>
       </div>
