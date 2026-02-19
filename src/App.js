@@ -25,11 +25,11 @@ function App() {
     if (!user) return;
 
     const q = query(
-      collection(db, 'items'), 
-      where('userId', '==', user.uid),
-      orderBy('category', 'asc'), 
-      orderBy('name', 'asc')
-    );
+        collection(db, 'items'),
+        where('userId', '==', user.uid), 
+        orderBy('category', 'asc'),
+        orderBy('name', 'asc')
+      );
     const unsub = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     });
