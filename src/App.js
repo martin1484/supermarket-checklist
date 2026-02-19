@@ -82,9 +82,9 @@ function App() {
         )}
         
         {remainingItems === 0 && totalItems > 0 ? (
-          <p className="status-msg success">Shopping complete! 🎉</p>
+          <p className="status-msg success">Compras completas! 🎉</p>
         ) : totalItems > 0 ? (
-          <p className="status-msg">{remainingItems} items remaining</p>
+          <p className="status-msg">Faltan {remainingItems} items</p>
         ) : null}
       </header>
 
