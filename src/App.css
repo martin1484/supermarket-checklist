@@ -465,21 +465,3 @@ header h1 {
 }
 
 /* --- */
-
-/* Confeti visual animation */
-@keyframes checkPop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-.checkbox-area svg {
-  transition: all 0.2s ease;
-}
-
-/* Esta clase se activará solo en el momento del click */
-.checkbox-area:active svg {
-  animation: checkPop 0.3s ease-out;
-  color: #2ecc71;
-}
-/* --- */

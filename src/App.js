@@ -33,10 +33,6 @@ function App() {
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      // Detectamos si hay cambios nuevos (y no es la carga inicial)
-      if (!snapshot.metadata.hasPendingWrites && snapshot.docChanges().length > 0) {
-        playPop();
-      }
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     });
     return () => unsubscribe();
@@ -124,14 +120,6 @@ function App() {
       setItems([]); // Limpiamos los items actuales
       localStorage.removeItem('currentList');
     }
-  };
-
-  const playPop = () => {
-    const audio = new Audio('/pop.mp3');
-    audio.volume = 0.4;
-    audio.play().catch(e => {
-      console.log("Audio desactivado hasta que el usuario interactúe.");
-    });
   };
 
 
