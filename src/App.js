@@ -38,6 +38,38 @@ function App() {
     return () => unsubscribe();
   }, [user, listCode]);
 
+  useEffect(() => {
+    // 1. Buscamos si hay un parámetro 'list' en la URL
+    const params = new URLSearchParams(window.location.search);
+    const codeFromURL = params.get('list');
+
+    if (codeFromURL) {
+      // 2. Si existe, lo guardamos como nuestra lista actual
+      setListCode(codeFromURL);
+      localStorage.setItem('currentList', codeFromURL);
+      
+      // 3. Limpiamos la URL para que se vea bonita (opcional)
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
+
+  const shareList = () => {
+    const shareUrl = `${window.location.origin}?list=${listCode}`;
+    const message = `🛒 ¡Ayúdame con las compras! Únete a mi lista en MarketList: ${shareUrl}`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Lista de Compras Compartida',
+        text: message,
+        url: shareUrl,
+      });
+    } else {
+      // Si el navegador no soporta el menú de compartir nativo
+      navigator.clipboard.writeText(shareUrl);
+      alert("¡Enlace de invitación copiado al portapapeles!");
+    }
+  };
+
   const addItem = async (itemName, itemCategory) => {
 
     if (!itemName) return;
@@ -193,9 +225,13 @@ function App() {
             <h1>Lista de Compras</h1>
           </div>
           <div className="header-actions">
-            <button onClick={shareList} className="icon-btn" title="Compartir">
+
+            <button onClick={shareList} className="icon-btn" title="Enviar invitación">
               <Share2 size={20} />
+              <span style={{fontSize: '0.7rem', marginLeft: '4px'}}>Invitar</span>
             </button>
+
+
             <button onClick={logout} className="icon-btn" title="Cerrar sesión">
               <LogOut size={20} />
             </button>
