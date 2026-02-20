@@ -185,55 +185,54 @@ function App() {
 
   return (
     <div className="app-container">
-      <header>
-        <div className="header-main">
-          <div className="title-section">
-            <h1><ShoppingCart size={24} /> Lista de Compras</h1>
-              {listCode && (
-                <div className="list-controls">
-                  <span className="list-code-badge" onClick={() => {
-                    navigator.clipboard.writeText(listCode);
-                    alert("¡Código copiado!");
-                  }}>
-                    Código: {listCode} 📋
-                  </span>
-                  <button onClick={leaveList} className="leave-btn" title="Salir de la lista">
-                    <LogOut size={14} /> Salir
-                  </button>
-                </div>
-              )}
+      
+      <header className="app-header">
+        {/* Nivel 1: Identidad y Sesión */}
+        <div className="header-top">
+          <div className="brand">
+            <ShoppingCart size={24} color="#2ecc71" />
+            <h1>MarketList</h1>
           </div>
           <div className="header-actions">
-
-            <button onClick={logout} className="icon-btn" title="Cerrar sesión">
-              <LogOut size={20} /> 
-            </button>
-
-            <button onClick={shareList} className="icon-btn">
+            <button onClick={shareList} className="icon-btn" title="Compartir">
               <Share2 size={20} />
             </button>
-            {totalItems > 0 && (
-              <div className="stats-badge">
-                {completedItemsCount} / {totalItems}
-              </div>
-            )}
+            <button onClick={logout} className="icon-btn" title="Cerrar Sesión">
+              <LogOut size={20} />
+            </button>
+            <div className="stats-badge">
+              {completedItemsCount}/{totalItems}
+            </div>
           </div>
         </div>
-        
-        {totalItems > 0 && (
-          <div className="progress-container">
-            <div 
-              className="progress-bar" 
-              style={{ width: `${(completedItemsCount / totalItems) * 100}%` }}
-            ></div>
+
+        {/* Nivel 2: Información de la Lista Compartida */}
+        {listCode && (
+          <div className="list-info-bar">
+            <div className="code-display" onClick={copyToClipboard}>
+              <span className="label">CÓDIGO:</span>
+              <span className="code">{listCode}</span>
+              <Copy size={12} />
+            </div>
+            <button onClick={leaveList} className="leave-link">
+              <ExternalLink size={14} /> Salir de esta lista
+            </button>
           </div>
         )}
-        
-        {remainingItems === 0 && totalItems > 0 ? (
-          <p className="status-msg success">Compras completas! 🎉</p>
-        ) : totalItems > 0 ? (
-          <p className="status-msg">Faltan {remainingItems} items</p>
-        ) : null}
+
+        {/* Nivel 3: Progreso y Status */}
+        <div className="progress-section">
+          <div className="progress-container">
+            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+          </div>
+          <p className="status-msg">
+            {totalItems === 0 
+              ? "Agrega algo para empezar" 
+              : remainingItems === 0 
+                ? "¡Compra completada! 🎉" 
+                : `Faltan ${remainingItems} ${remainingItems === 1 ? 'ítem' : 'ítems'}`}
+          </p>
+        </div>
       </header>
 
       <AddItem onAdd={addItem} />

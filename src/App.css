@@ -465,3 +465,89 @@ header h1 {
 }
 
 /* --- */
+
+/*  New header change */
+.app-header {
+  margin-bottom: 20px;
+}
+
+/* Fila Superior */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand h1 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0;
+  color: #1a202c;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Barra de Código y Salida */
+.list-info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7fafc;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #edf2f7;
+}
+
+.code-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.code-display .label {
+  font-size: 0.65rem;
+  color: #a0aec0;
+  font-weight: bold;
+}
+
+.code-display .code {
+  font-family: 'Monaco', monospace;
+  font-weight: bold;
+  color: #2d3748;
+  letter-spacing: 1px;
+}
+
+.leave-link {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* Sección de Progreso */
+.status-msg {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* --- */
