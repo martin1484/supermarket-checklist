@@ -436,4 +436,32 @@ header h1 {
 .list-code-badge:hover {
   background: #e2e8f0;
 }
+
+.list-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.leave-btn {
+  background: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #feb2b2;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.leave-btn:hover {
+  background: #e53e3e;
+  color: white;
+}
+
 /* --- */

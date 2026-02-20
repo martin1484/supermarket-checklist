@@ -114,6 +114,14 @@ function App() {
     localStorage.setItem('currentList', newCode);
   };
 
+  const leaveList = () => {
+    if (window.confirm("¿Quieres salir de esta lista? Podrás volver a entrar si tienes el código.")) {
+      setListCode(null);
+      setItems([]); // Limpiamos los items actuales
+      localStorage.removeItem('currentList');
+    }
+  };
+
   if (user && !listCode) {
     return (
       <div className="app-container">
@@ -180,14 +188,19 @@ function App() {
         <div className="header-main">
           <div className="title-section">
             <h1><ShoppingCart size={24} /> Lista de Compras</h1>
-            {listCode && (
-              <span className="list-code-badge" onClick={() => {
-                navigator.clipboard.writeText(listCode);
-                alert("¡Código copiado!");
-              }}>
-                Código: {listCode} 📋
-              </span>
-            )}
+              {listCode && (
+                <div className="list-controls">
+                  <span className="list-code-badge" onClick={() => {
+                    navigator.clipboard.writeText(listCode);
+                    alert("¡Código copiado!");
+                  }}>
+                    Código: {listCode} 📋
+                  </span>
+                  <button onClick={leaveList} className="leave-btn" title="Salir de la lista">
+                    <LogOut size={14} /> Salir
+                  </button>
+                </div>
+              )}
           </div>
           <div className="header-actions">
 
