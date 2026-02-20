@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase/firebaseConfig';
 import { collection, query, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, orderBy, where } from 'firebase/firestore';
-import { ShoppingCart, Share2, LogOut, Trash2 } from 'lucide-react';
+import { ShoppingCart, Share2, LogOut, Trash2, Copy, ExternalLink } from 'lucide-react';
 import './App.css';
 import AddItem from './components/AddItem';
 import ListItem from './components/ListItem';
@@ -190,7 +190,7 @@ function App() {
         <div className="header-top">
           <div className="brand">
             <ShoppingCart size={24} color="#2ecc71" />
-            <h1>MarketList</h1>
+            <h1>Lista de Compras</h1>
           </div>
           <div className="header-actions">
             <button onClick={shareList} className="icon-btn" title="Compartir">
