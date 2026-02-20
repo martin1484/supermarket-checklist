@@ -259,12 +259,6 @@ function App() {
       </ul>
 
       {items.some(item => item.completed) && (
-        <button className="clear-btn" onClick={clearCompleted}>
-          Limpiar Completados
-        </button>
-      )}
-
-      {items.some(item => item.completed) && (
         <button onClick={clearCompleted} className="clear-btn">
           <Trash2 size={16} /> Limpiar artículos comprados
         </button>
