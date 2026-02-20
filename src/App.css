@@ -386,3 +386,29 @@ header h1 {
   transform: scale(1.2);
 }
 /* --- */
+
+
+/* Clear completed items */
+.clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #fff5f5; /* Un rojo muy suave */
+  border: 1px dashed #feb2b2;
+  color: #e53e3e;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.clear-btn:hover {
+  background-color: #fed7d7;
+  border-style: solid;
+}
+/* --- */

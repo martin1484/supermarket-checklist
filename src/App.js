@@ -188,6 +188,12 @@ function App() {
         </button>
       )}
 
+      {items.some(item => item.completed) && (
+        <button onClick={clearCompleted} className="clear-btn">
+          <Trash2 size={16} /> Limpiar artículos comprados
+        </button>
+      )}
+
     </div>
   );
 }
