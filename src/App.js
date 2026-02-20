@@ -53,23 +53,6 @@ function App() {
     }
   }, []);
 
-  const shareList = () => {
-    const shareUrl = `${window.location.origin}?list=${listCode}`;
-    const message = `🛒 ¡Ayúdame con las compras! Únete a mi lista en MarketList: ${shareUrl}`;
-
-    if (navigator.share) {
-      navigator.share({
-        title: 'Lista de Compras Compartida',
-        text: message,
-        url: shareUrl,
-      });
-    } else {
-      // Si el navegador no soporta el menú de compartir nativo
-      navigator.clipboard.writeText(shareUrl);
-      alert("¡Enlace de invitación copiado al portapapeles!");
-    }
-  };
-
   const addItem = async (itemName, itemCategory) => {
 
     if (!itemName) return;
@@ -86,9 +69,20 @@ function App() {
   };
 
   const shareList = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
-    alert("Link copied! Send this URL to your partner to shop together.");
+    const shareUrl = `${window.location.origin}?list=${listCode}`;
+    const message = `🛒 ¡Ayúdame con las compras! Únete a mi lista en MarketList: ${shareUrl}`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Lista de Compras Compartida',
+        text: message,
+        url: shareUrl,
+      });
+    } else {
+      // Si el navegador no soporta el menú de compartir nativo
+      navigator.clipboard.writeText(shareUrl);
+      alert("¡Enlace de invitación copiado al portapapeles!");
+    }
   };
 
   const toggleComplete = async (item) => {
