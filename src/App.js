@@ -70,7 +70,7 @@ function App() {
 
   const shareList = () => {
     const shareUrl = `${window.location.origin}?list=${listCode}`;
-    const message = `🛒 ¡Ayúdame con las compras! Únete a mi lista en MarketList: ${shareUrl}`;
+    const message = `🛒 ¡Ayúdame con las compras! Únete a mi lista en Lista de compras`;
 
     if (navigator.share) {
       navigator.share({
@@ -219,21 +219,22 @@ function App() {
             <h1>Lista de Compras</h1>
           </div>
           <div className="header-actions">
+            
+            {totalItems > 0 && (
+              <div className="stats-pill">
+                {completedItemsCount}/{totalItems}
+              </div>
+            )}
 
             <button onClick={shareList} className="icon-btn" title="Enviar invitación">
               <Share2 size={20} />
-              <span style={{fontSize: '0.7rem', marginLeft: '4px'}}>Invitar</span>
             </button>
 
 
             <button onClick={logout} className="icon-btn" title="Cerrar sesión">
               <LogOut size={20} />
             </button>
-            {totalItems > 0 && (
-              <div className="stats-pill">
-                {completedItemsCount}/{totalItems}
-              </div>
-            )}
+
           </div>
         </div>
 
