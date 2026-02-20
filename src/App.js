@@ -128,7 +128,7 @@ function App() {
 
   const playPop = () => {
     // Este es un sonido de 'notificación' oficial y ligero
-    const audio = new Audio('https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png' === '' ? '' : 'https://www.gstatic.com/android/market_images/web/play_prism_h_60.mp3'); 
+    //const audio = new Audio('https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png' === '' ? '' : 'https://www.gstatic.com/android/market_images/web/play_prism_h_60.mp3'); 
     
     // Como el link de arriba puede fallar, usemos este de una librería estable:
     const soundEffect = new Audio('https://actions.google.com/sounds/v1/foley/pop_cork.ogg');
