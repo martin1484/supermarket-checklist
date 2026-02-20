@@ -11,6 +11,7 @@ function App() {
   const [items, setItems] = useState([]);
   const auth = getAuth();
   const [user, setUser] = useState(null);
+  const [listCode, setListCode] = useState(localStorage.getItem('currentList') || null);
 
   // 1. Escuchar si el usuario inicia sesión
   useEffect(() => {
@@ -20,21 +21,22 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
+  // La consulta ahora filtra por listCode en lugar de userId
   useEffect(() => {
-    
-    if (!user) return;
+    if (!user || !listCode) return;
 
     const q = query(
-        collection(db, 'items'),
-        where('userId', '==', user.uid), 
-        orderBy('category', 'asc'),
-        orderBy('name', 'asc')
-      );
-    const unsub = onSnapshot(q, (snapshot) => {
+      collection(db, 'items'),
+      where('listCode', '==', listCode),
+      orderBy('category', 'asc'),
+      orderBy('name', 'asc')
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     });
-    return () => unsub();
-  }, [user]);
+    return () => unsubscribe();
+  }, [user, listCode]);
 
   const addItem = async (itemName, itemCategory) => {
 
@@ -45,6 +47,7 @@ function App() {
       category: itemCategory,
       completed: false,
       quantity: 1,
+      listCode: listCode,
       userId: user.uid,
       createdAt: serverTimestamp()
     });
@@ -87,7 +90,6 @@ function App() {
 
   const login = () => signInWithPopup(auth, new GoogleAuthProvider());
   const logout = () => signOut(auth);
-
   const guestLogin = async () => {
     try {
       await signInAnonymously(auth);
@@ -95,6 +97,57 @@ function App() {
       console.error("Error al entrar como invitado:", error);
     }
   };
+
+  const joinList = (e) => {
+    e.preventDefault();
+    const code = e.target.code.value.trim().toLowerCase();
+    if (code) {
+      setListCode(code);
+      localStorage.setItem('currentList', code);
+    }
+  };
+
+  const generateNewList = () => {
+    // Genera un número entre 10000 y 99999
+    const newCode = Math.floor(10000 + Math.random() * 90000).toString();
+    setListCode(newCode);
+    localStorage.setItem('currentList', newCode);
+  };
+
+  if (user && !listCode) {
+    return (
+      <div className="app-container">
+        <div className="login-container">
+          <h2>🛍️ Tus Listas</h2>
+          <p>Crea una lista nueva o únete a una compartida introduciendo su código de 5 dígitos.</p>
+          
+          {/* Opción A: Crear nueva */}
+          <button onClick={generateNewList} className="login-btn" style={{width: '100%', marginBottom: '15px'}}>
+            ✨ Crear nueva lista
+          </button>
+
+          <div className="divider">o únete a una existente</div>
+
+          {/* Opción B: Unirse */}
+          <form onSubmit={joinList} className="add-item-form" style={{background: 'none', padding: 0}}>
+            <div className="input-group">
+              <input 
+                name="code" 
+                type="number" 
+                placeholder="Ej: 54321" 
+                max="99999"
+                required 
+                style={{textAlign: 'center', fontSize: '1.5rem', letterSpacing: '5px'}}
+              />
+            </div>
+            <button type="submit" className="add-submit-btn" style={{width: '100%', marginTop: '10px'}}>
+              Unirme
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -125,7 +178,17 @@ function App() {
     <div className="app-container">
       <header>
         <div className="header-main">
-          <h1><ShoppingCart /> Lista de Compras</h1>
+          <div className="title-section">
+            <h1><ShoppingCart size={24} /> Lista de Compras</h1>
+            {listCode && (
+              <span className="list-code-badge" onClick={() => {
+                navigator.clipboard.writeText(listCode);
+                alert("¡Código copiado!");
+              }}>
+                Código: {listCode} 📋
+              </span>
+            )}
+          </div>
           <div className="header-actions">
 
             <button onClick={logout} className="icon-btn" title="Cerrar sesión">
