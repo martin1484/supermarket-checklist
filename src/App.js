@@ -100,7 +100,7 @@ function App() {
     return (
       <div className="app-container">
         <div className="login-container">
-          <h1><ShoppingCart size={40} color="#2ecc71" /> MarketList</h1>
+          <h1><ShoppingCart size={40} color="#2ecc71" /> Lista de Compras</h1>
           <p>Tu lista de compras inteligente y privada.</p>
           
           <button onClick={login} className="login-btn">

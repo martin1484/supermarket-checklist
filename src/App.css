@@ -19,12 +19,14 @@ header h1 {
   margin: 0;
 }
 
+/*
 .header-main {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
+*/
 
 .header-actions {
   display: flex;
@@ -32,6 +34,7 @@ header h1 {
   gap: 12px;
 }
 
+/*
 .stats-badge {
   background: #f0f4f8;
   color: #2d3748;
@@ -40,6 +43,7 @@ header h1 {
   font-weight: bold;
   font-size: 0.9rem;
 }
+*/
 
 .progress-container {
   width: 100%;
@@ -332,4 +336,28 @@ header h1 {
   margin-top: 25px !important;
   font-size: 0.75rem !important;
   color: #a0aec0 !important;
+}
+
+.stats-badge {
+  background: #f0fdf4; /* Un verde muy clarito */
+  color: #166534;    /* Un verde oscuro para buen contraste */
+  padding: 4px 12px;
+  border-radius: 999px; /* Forma de píldora perfecta */
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bbf7d0; /* Borde sutil */
+  white-space: nowrap; /* Evita que el número se parta en dos líneas */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Ajuste para el contenedor padre en App.js */
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px; /* Espacio mínimo entre el título y el badge */
+  margin-bottom: 15px;
 }
