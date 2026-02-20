@@ -185,9 +185,8 @@ function App() {
 
   return (
     <div className="app-container">
-      
       <header className="app-header">
-        {/* Nivel 1: Identidad y Sesión */}
+        {/* Nivel 1: Marca y Acciones Globales */}
         <div className="header-top">
           <div className="brand">
             <ShoppingCart size={24} color="#2ecc71" />
@@ -197,42 +196,50 @@ function App() {
             <button onClick={shareList} className="icon-btn" title="Compartir">
               <Share2 size={20} />
             </button>
-            <button onClick={logout} className="icon-btn" title="Cerrar Sesión">
+            <button onClick={logout} className="icon-btn" title="Cerrar sesión">
               <LogOut size={20} />
             </button>
-            <div className="stats-badge">
-              {completedItemsCount}/{totalItems}
-            </div>
+            {totalItems > 0 && (
+              <div className="stats-pill">
+                {completedItemsCount}/{totalItems}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Nivel 2: Información de la Lista Compartida */}
+        {/* Nivel 2: Barra de la Lista Compartida (Solo si hay código) */}
         {listCode && (
           <div className="list-info-bar">
-            <div className="code-display" onClick={copyToClipboard}>
-              <span className="label">CÓDIGO:</span>
-              <span className="code">{listCode}</span>
+            <div className="code-box" onClick={() => {
+              navigator.clipboard.writeText(listCode);
+              alert("¡Código copiado!");
+            }}>
+              <span className="code-label">CÓDIGO</span>
+              <span className="code-number">{listCode}</span>
               <Copy size={12} />
             </div>
             <button onClick={leaveList} className="leave-link">
-              <ExternalLink size={14} /> Salir de esta lista
+              <ExternalLink size={14} /> Salir
             </button>
           </div>
         )}
 
-        {/* Nivel 3: Progreso y Status */}
-        <div className="progress-section">
-          <div className="progress-container">
-            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-          </div>
-          <p className="status-msg">
-            {totalItems === 0 
-              ? "Agrega algo para empezar" 
-              : remainingItems === 0 
-                ? "¡Compra completada! 🎉" 
+        {/* Nivel 3: Progreso y Estado */}
+        {totalItems > 0 && (
+          <div className="progress-section">
+            <div className="progress-container">
+              <div 
+                className="progress-bar" 
+                style={{ width: `${(completedItemsCount / totalItems) * 100}%` }}
+              ></div>
+            </div>
+            <p className={`status-msg ${remainingItems === 0 ? 'success' : ''}`}>
+              {remainingItems === 0 
+                ? "¡Todo listo! 🎉" 
                 : `Faltan ${remainingItems} ${remainingItems === 1 ? 'ítem' : 'ítems'}`}
-          </p>
-        </div>
+            </p>
+          </div>
+        )}
       </header>
 
       <AddItem onAdd={addItem} />
