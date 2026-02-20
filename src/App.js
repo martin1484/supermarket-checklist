@@ -162,7 +162,16 @@ function App() {
       <AddItem onAdd={addItem} />
 
       <ul className="list">
-        {items.map(item => (
+        {items
+          .slice() // Creamos una copia para no afectar el estado original
+          .sort((a, b) => {
+            // Si 'a' está completado y 'b' no, 'a' va al final (retorna 1)
+              if (a.completed !== b.completed) {
+                return a.completed ? 1 : -1;
+              }
+              // Si ambos tienen el mismo estado, mantenemos el orden por categoría/nombre
+              return 0; 
+          }).map(item => (
           <ListItem
             key={item.id}
             item={item}
