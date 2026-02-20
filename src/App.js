@@ -33,6 +33,10 @@ function App() {
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
+      // Detectamos si hay cambios nuevos (y no es la carga inicial)
+      if (!snapshot.metadata.hasPendingWrites && snapshot.docChanges().length > 0) {
+        playPop();
+      }
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
     });
     return () => unsubscribe();
@@ -121,6 +125,13 @@ function App() {
       localStorage.removeItem('currentList');
     }
   };
+
+  const playPop = () => {
+    const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
+    audio.volume = 0.5; 
+    audio.play().catch(e => console.log("Audio block:", e));
+  };
+
 
   if (user && !listCode) {
     return (
