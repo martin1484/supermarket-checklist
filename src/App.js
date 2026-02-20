@@ -5,7 +5,7 @@ import { ShoppingCart, Share2, LogOut } from 'lucide-react';
 import './App.css';
 import AddItem from './components/AddItem';
 import ListItem from './components/ListItem';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -88,12 +88,35 @@ function App() {
   const login = () => signInWithPopup(auth, new GoogleAuthProvider());
   const logout = () => signOut(auth);
 
+  const guestLogin = async () => {
+    try {
+      await signInAnonymously(auth);
+    } catch (error) {
+      console.error("Error al entrar como invitado:", error);
+    }
+  };
+
   if (!user) {
     return (
-      <div className="login-container">
-        <h1>Lista de Compras</h1>
-        <p>Organiza tus compras de forma privada.</p>
-        <button onClick={login} className="login-btn">Entrar con Google</button>
+      <div className="app-container">
+        <div className="login-container">
+          <h1><ShoppingCart size={40} color="#2ecc71" /> MarketList</h1>
+          <p>Tu lista de compras inteligente y privada.</p>
+          
+          <button onClick={login} className="login-btn">
+            Iniciar sesión con Google
+          </button>
+
+          <div className="divider">o</div>
+
+          <button onClick={guestLogin} className="guest-btn">
+            Continuar como invitado
+          </button>
+          
+          <p className="note">
+            Nota: Si usas el modo invitado, tu lista se perderá si borras los datos del navegador.
+          </p>
+        </div>
       </div>
     );
   }
