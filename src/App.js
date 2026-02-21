@@ -17,6 +17,15 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      // Si el usuario acaba de loguearse y tenemos una lista pendiente...
+      if (currentUser) {
+        const pendingCode = localStorage.getItem('pendingListCode');
+        if (pendingCode) {
+          setListCode(pendingCode);
+          localStorage.setItem('currentList', pendingCode);
+          localStorage.removeItem('pendingListCode'); // Ya la usamos, la borramos
+        }
+      }
     });
     return () => unsubscribe();
   }, [auth]);
@@ -47,7 +56,8 @@ function App() {
       // 2. Si existe, lo guardamos como nuestra lista actual
       setListCode(codeFromURL);
       localStorage.setItem('currentList', codeFromURL);
-      
+      // Guardamos el código inmediatamente en el 'bolsillo' del navegador
+      localStorage.setItem('pendingListCode', codeFromURL);
       // 3. Limpiamos la URL para que se vea bonita (opcional)
       window.history.replaceState({}, document.title, window.location.pathname);
     }
@@ -188,6 +198,11 @@ function App() {
     return (
       <div className="app-container">
         <div className="login-container">
+          {localStorage.getItem('pendingListCode') && (
+            <div className="status-msg success" style={{ marginBottom: '20px' }}>
+              ✅ Enlace de invitación detectado. ¡Inicia sesión para entrar!
+            </div>
+          )}
           <h1><ShoppingCart size={40} color="#2ecc71" /> Lista de Compras</h1>
           <p>Tu lista de compras inteligente y privada.</p>
           
