@@ -206,20 +206,6 @@ function App() {
     );
   }
 
-  /*if (loading) {
-    return (
-      <div className="loader-container">
-        <div className="loader-content">
-          <ShoppingCart size={48} className="bouncing-cart" />
-          <div className="spinner-dots">
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-        <p>Sincronizando lista...</p>
-      </div>
-    );
-  }*/
-
   if (!user) {
     return (
       <div className="app-container">
