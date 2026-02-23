@@ -12,6 +12,7 @@ function App() {
   const auth = getAuth();
   const [user, setUser] = useState(null);
   const [listCode, setListCode] = useState(localStorage.getItem('currentList') || null);
+  const [loadingList, setLoadingList] = useState(false);
 
   // 1. Escuchar si el usuario inicia sesión
   useEffect(() => {
@@ -35,8 +36,11 @@ function App() {
   useEffect(() => {
     
     if (!user || !listCode) {
+      setLoadingList(false);
       return;
     }
+
+    setLoadingList(true);
 
     const q = query(
       collection(db, 'items'),
@@ -47,8 +51,10 @@ function App() {
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      setLoadingList(false);
     }, (error) => {
       console.error("Error cargando lista:", error);
+      setLoadingList(false);
     });
     return () => unsubscribe();
   }, [user, listCode]);
@@ -310,26 +316,33 @@ function App() {
 
       <AddItem onAdd={addItem} />
 
-      <ul className="list">
-        {items
-          .slice() // Creamos una copia para no afectar el estado original
-          .sort((a, b) => {
-            // Si 'a' está completado y 'b' no, 'a' va al final (retorna 1)
-              if (a.completed !== b.completed) {
-                return a.completed ? 1 : -1;
-              }
-              // Si ambos tienen el mismo estado, mantenemos el orden por categoría/nombre
-              return 0; 
-          }).map(item => (
-          <ListItem
-            key={item.id}
-            item={item}
-            onToggle={toggleComplete}
-            onDelete={deleteItem}
-            onUpdateQuantity={updateQuantity}
-          />
-        ))}
-      </ul>
+      {loadingList ? (
+        <div className="list-loader">
+          <div className="spinner-sutil"></div>
+          <p>Sincronizando productos...</p>
+        </div>
+      ) : (
+        <ul className="list">
+          {items
+            .slice() // Creamos una copia para no afectar el estado original
+            .sort((a, b) => {
+              // Si 'a' está completado y 'b' no, 'a' va al final (retorna 1)
+                if (a.completed !== b.completed) {
+                  return a.completed ? 1 : -1;
+                }
+                // Si ambos tienen el mismo estado, mantenemos el orden por categoría/nombre
+                return 0; 
+            }).map(item => (
+            <ListItem
+              key={item.id}
+              item={item}
+              onToggle={toggleComplete}
+              onDelete={deleteItem}
+              onUpdateQuantity={updateQuantity}
+            />
+          ))}
+        </ul>
+      )};
 
       {items.some(item => item.completed) && (
         <button onClick={clearCompleted} className="clear-btn">
