@@ -12,7 +12,6 @@ function App() {
   const auth = getAuth();
   const [user, setUser] = useState(null);
   const [listCode, setListCode] = useState(localStorage.getItem('currentList') || null);
-  const [loading, setLoading] = useState(true);
 
   // 1. Escuchar si el usuario inicia sesión
   useEffect(() => {
@@ -28,9 +27,6 @@ function App() {
         }
       }
 
-    // Una vez procesado todo, quitamos el loader
-    //setLoading(false);
-
     });
     return () => unsubscribe();
   }, [auth]);
@@ -39,8 +35,6 @@ function App() {
   useEffect(() => {
     
     if (!user || !listCode) {
-      // Si no hay usuario o código, dejamos de cargar para mostrar el login/unión
-      //setLoading(false); 
       return;
     }
 
@@ -53,10 +47,8 @@ function App() {
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-      setLoading(false);
     }, (error) => {
       console.error("Error cargando lista:", error);
-      setLoading(false); // También quitamos el loader si hay error para no bloquear al usuario
     });
     return () => unsubscribe();
   }, [user, listCode]);
@@ -208,7 +200,7 @@ function App() {
     );
   }
 
-  if (loading) {
+  /*if (loading) {
     return (
       <div className="loader-container">
         <div className="loader-content">
@@ -220,7 +212,7 @@ function App() {
         <p>Sincronizando lista...</p>
       </div>
     );
-  }
+  }*/
 
   if (!user) {
     return (
