@@ -40,7 +40,7 @@ function App() {
     
     if (!user || !listCode) {
       // Si no hay usuario o código, dejamos de cargar para mostrar el login/unión
-      setLoading(false); 
+      //setLoading(false); 
       return;
     }
 
