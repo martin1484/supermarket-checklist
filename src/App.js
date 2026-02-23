@@ -29,7 +29,7 @@ function App() {
       }
 
     // Una vez procesado todo, quitamos el loader
-    setLoading(false);
+    //setLoading(false);
 
     });
     return () => unsubscribe();
