@@ -342,7 +342,7 @@ function App() {
             />
           ))}
         </ul>
-      )};
+      )}
 
       {items.some(item => item.completed) && (
         <button onClick={clearCompleted} className="clear-btn">
