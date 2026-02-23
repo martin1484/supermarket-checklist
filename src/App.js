@@ -12,6 +12,7 @@ function App() {
   const auth = getAuth();
   const [user, setUser] = useState(null);
   const [listCode, setListCode] = useState(localStorage.getItem('currentList') || null);
+  const [loading, setLoading] = useState(true);
 
   // 1. Escuchar si el usuario inicia sesión
   useEffect(() => {
@@ -26,13 +27,22 @@ function App() {
           localStorage.removeItem('pendingListCode'); // Ya la usamos, la borramos
         }
       }
+
+    // Una vez procesado todo, quitamos el loader
+    setLoading(false);
+
     });
     return () => unsubscribe();
   }, [auth]);
 
   // La consulta ahora filtra por listCode en lugar de userId
   useEffect(() => {
-    if (!user || !listCode) return;
+    
+    if (!user || !listCode) {
+      // Si no hay usuario o código, dejamos de cargar para mostrar el login/unión
+      setLoading(false); 
+      return;
+    }
 
     const q = query(
       collection(db, 'items'),
@@ -43,6 +53,10 @@ function App() {
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setItems(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
+    }, (error) => {
+      console.error("Error cargando lista:", error);
+      setLoading(false); // También quitamos el loader si hay error para no bloquear al usuario
     });
     return () => unsubscribe();
   }, [user, listCode]);
@@ -190,6 +204,20 @@ function App() {
             </button>
           </form>
         </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="loader-content">
+          <ShoppingCart size={48} className="bouncing-cart" />
+          <div className="spinner-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <p>Sincronizando lista...</p>
       </div>
     );
   }
